@@ -19,15 +19,22 @@ const Post = mongoose.model('Post', {
 });
 
 const newPost = new Post({
-  title: 'Tenge 381 v obmennikah',
-  author: 'Shamil Suvorov',
+  title: 'Moy vtoroy post',
+  author: '123',
   content: 'Segodnya bla bla blab bla...'
 });
 
-newPost.save().then(function(success) {
-  console.log('saved ', success);
+/* SAVE POST */
+// newPost.save().then(function(success) {
+//   console.log('saved ', success);
+// }, function(error) {
+//   console.log('Error on save ', error);
+// });
+
+Post.find().then(function(success) {
+  console.log('success ', success);
 }, function(error) {
-  console.log('Error on save ', error);
+  console.log('error happened on find ', error);
 });
 
 app.listen(3000);
