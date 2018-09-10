@@ -4,9 +4,9 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/meanproject');
 
-app.get('/', (req, res) => {
-  res.send('Hello, world, 123');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello, world, 123');
+// });
 
 const Post = mongoose.model('Post', {
   title: String,
@@ -40,11 +40,34 @@ const newPost = new Post({
 // });
 
 /* GET POST BY ID */
-Post.findById('5b967dc4ac7425190421ed7c')
-  .then(function(success) {
-    console.log('findById ', success);
+// Post.findById('5b967dc4ac7425190421ed7c')
+//   .then(function(success) {
+//     console.log('findById ', success);
+//   }, function(error) {
+//     console.log('error happend on findById ', error);
+//   });
+
+/* UPDATE BY ID. findByIdAndUpdate */
+/* DELETE BY ID. findByIdAndDelete */
+
+app.get('/api/posts', function(req, res) {
+  Post.find().then(function(success) {
+    res.send({posts: success});
   }, function(error) {
-    console.log('error happend on findById ', error);
+    console.log('error happened on find ', error);
   });
+});
+
+app.get('/api/posts/:id', function(req, res) {
+  var id = req.params.id;
+
+  Post.findById(id)
+    .then(function(success) {
+      console.log('success ', success);
+      res.send(success);
+    }, function(error) {
+      console.log('error happend on findById ', error);
+  });
+});
 
 app.listen(3000);
