@@ -31,10 +31,20 @@ const newPost = new Post({
 //   console.log('Error on save ', error);
 // });
 
-Post.find().then(function(success) {
-  console.log('success ', success);
-}, function(error) {
-  console.log('error happened on find ', error);
-});
+
+/* GET ALL */
+// Post.find().then(function(success) {
+//   console.log('success ', success);
+// }, function(error) {
+//   console.log('error happened on find ', error);
+// });
+
+/* GET POST BY ID */
+Post.findById('5b967dc4ac7425190421ed7c')
+  .then(function(success) {
+    console.log('findById ', success);
+  }, function(error) {
+    console.log('error happend on findById ', error);
+  });
 
 app.listen(3000);
