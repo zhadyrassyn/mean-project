@@ -82,7 +82,7 @@ app.delete('/api/posts/:myid', function(req, res) {
     });
 });
 
-app.update('/api/posts/:id', function(req, res) {
+app.post('/api/posts/:id', function(req, res) {
   var author = req.body.author;
   var content = req.body.content;
   var id = req.params.id;
