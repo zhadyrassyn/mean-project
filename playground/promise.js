@@ -12,8 +12,13 @@ var add = function(a, b) {
   });
 };
 
-add(2, '3').then(function(result) {
-  console.log('result ', result);
-}, function(error) {
+//https://github.com/zhadyrassyn/mean-project/tree/lesson3
+
+add(2, 3).then(function(result) {
+  console.log('result1 ', result);
+  return add(5, 6);
+}).then(function(result) {
+  console.log('result2 ', result);
+}).catch(function(error) {
   console.log('error ', error);
 });
