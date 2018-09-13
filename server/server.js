@@ -4,9 +4,9 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/meanproject');
 
-// app.get('/', (req, res) => {
-//   res.send('Hello, world, 123');
-// });
+app.get('/', (req, res) => {
+  res.send('Hello, world, 123');
+});
 
 const Post = mongoose.model('Post', {
   title: String,
@@ -69,5 +69,37 @@ app.get('/api/posts/:id', function(req, res) {
       console.log('error happend on findById ', error);
   });
 });
+
+// localhost:3000/api/posts/asdfasfaasd
+app.delete('/api/posts/:myid', function(req, res) {
+  var id = req.params.myid;
+
+  Post.findByIdAndDelete(id)
+    .then(function(success) {
+      console.log('success ', success);
+    }, function(error) {
+      console.log(error);
+    });
+});
+
+app.update('/api/posts/:id', function(req, res) {
+  var author = req.body.author;
+  var content = req.body.content;
+  var id = req.params.id;
+
+  var updateObject = {
+    author: author,
+    content: content
+  };
+
+  Post.findByIdAndUpdate(id, {$set: updateObject} ,
+    {new: true})
+    .then(function(success) {
+      console.log('udated ', success);
+    }, function(error) {
+      console.log('error ', error);
+    });
+});
+
 
 app.listen(3000);
