@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html data-ng-app="root">
+  <head>
+    <title>Index</title>
+  </head>
+
+  <body data-ng-controller="myCtrl">
+    <h1>Hello, world! {{school}}</h1>
+
+    <script type="text/javascript" src="vendor/js/ng.min.js"></script>
+
+    <script type="text/javascript">
+      var app = angular.module('root', []);
+
+      app.controller('myCtrl', function($scope) {
+        $scope.school = "Decode";
+      });
+    </script>
+
+  </body>
+</html>
+
