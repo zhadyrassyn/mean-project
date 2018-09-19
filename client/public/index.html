@@ -7,13 +7,37 @@
   <body data-ng-controller="myCtrl">
     <h1>Hello, world! {{school}}</h1>
 
+    <ul>
+      <li data-ng-repeat="x in posts">
+        <p>Title: {{x.title}}</p>
+        <p>Content: {{x.content}}</p>
+        <p>Author: {{x.author}}</p>
+        <p>Date: {{x.date}}</p>
+        <p>
+          <button>Edit</button>
+          <button>Delete</button>
+          <button>More...</button>
+        </p>
+      </li>
+    </ul>
+
     <script type="text/javascript" src="vendor/js/ng.min.js"></script>
 
     <script type="text/javascript">
       var app = angular.module('root', []);
 
-      app.controller('myCtrl', function($scope) {
+      app.controller('myCtrl', function($scope, $http) {
         $scope.school = "Decode";
+        $scope.posts = [];
+
+        $http.get('/api/posts')
+          .then(function(success) {
+            var postsData = success.data.posts;
+            $scope.posts = postsData;
+
+          }).catch(function(error) {
+            console.log('error ', error);
+          });
       });
     </script>
 
