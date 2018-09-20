@@ -13,7 +13,7 @@ app.use(bodyParser.json()); // use bodyParser.json() function that helps to pars
 app.use('/api', postController);
 
 app.get('*', function(req, res) {
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
 
 app.listen(3000);
