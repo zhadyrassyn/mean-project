@@ -1,1 +1,34 @@
-Hello, {{school}}
+<button type="button" data-ng-click="vm.showAddModal()">Add a new post</button>
+<ul>
+  <li data-ng-repeat="post in vm.posts">
+    <article>
+      <p>Title: {{post.title}}</p>
+      <p>Author: {{post.author}}</p>
+      <p>Date: {{post.date | date: 'yyyy-MM-dd HH:mm'}}</p>
+      <p>Content: {{post.content}}</p>
+    </article>
+  </li>
+</ul>
+
+<!-- The Modal -->
+<div id="myModal" class="modal" data-ng-if="vm.showAddModalFlag">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" data-ng-click="vm.closeAddModal()">&times;</span>
+      <h2>Дабавить новый пост</h2>
+    </div>
+    <div class="modal-body">
+      <input type="text" placeholder="Введите автора" data-ng-model="vm.addAuthor">
+      <input type="text" placeholder="Введите название поста" data-ng-model="vm.addTitle">
+      <textarea placeholder="Введите контент поста" data-ng-model="vm.addContent">
+      </textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" data-ng-click="vm.closeAddModal()">Отмена</button>
+      <button type="button" data-ng-click="vm.savePost(vm.addAuthor, vm.addTitle, vm.addContent)">Сохранить</button>
+    </div>
+  </div>
+
+</div>
