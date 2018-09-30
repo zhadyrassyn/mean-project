@@ -6,7 +6,32 @@
       <p>Author: {{post.author}}</p>
       <p>Date: {{post.date | date: 'yyyy-MM-dd HH:mm'}}</p>
       <p>Content: {{post.content}}</p>
+      <button type="button" data-ng-click="vm.deletePost(post._id)">Delete</button>
+      <button type="button" data-ng-click="vm.editPost(post)">Edit</button>
     </article>
+
+    <!-- EDIT Modal -->
+    <div class="modal" data-ng-if="vm.showEditModalFlag">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" data-ng-click="vm.closeEditModal()">&times;</span>
+          <h2>Редактирование пост: {{post.title}}</h2>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="Введите автора" data-ng-model="vm.editAuthor">
+          <input type="text" placeholder="Введите название поста" data-ng-model="vm.editTitle">
+          <textarea placeholder="Введите контент поста" data-ng-model="vm.editContent">
+      </textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-ng-click="vm.closeEditModal()">Отмена</button>
+          <button type="button" data-ng-click="vm.updatePost(vm.editId, vm.editAuthor, vm.editTitle, vm.editContent)">Сохранить</button>
+        </div>
+      </div>
+
+    </div>
   </li>
 </ul>
 
