@@ -7,7 +7,8 @@ const Post = mongoose.model('Post', { // Creating our Post model(table).
   date: {
     type: Date,
     default: Date.now() //setting default, which will take date time on saving
-  }
+  },
+  image: String
 });
 
 module.exports = Post;

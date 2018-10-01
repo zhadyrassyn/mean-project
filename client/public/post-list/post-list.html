@@ -2,6 +2,7 @@
 <ul>
   <li data-ng-repeat="post in vm.posts">
     <article>
+      <img data-ng-src="{{post.image}}" alt="Картинка поста" data-ng-if="post.image">
       <p>Title: {{post.title}}</p>
       <p>Author: {{post.author}}</p>
       <p>Date: {{post.date | date: 'yyyy-MM-dd HH:mm'}}</p>
@@ -49,10 +50,11 @@
       <input type="text" placeholder="Введите название поста" data-ng-model="vm.addTitle">
       <textarea placeholder="Введите контент поста" data-ng-model="vm.addContent">
       </textarea>
+      <input type="file" ng-file-model="vm.image">
     </div>
     <div class="modal-footer">
       <button type="button" data-ng-click="vm.closeAddModal()">Отмена</button>
-      <button type="button" data-ng-click="vm.savePost(vm.addAuthor, vm.addTitle, vm.addContent)">Сохранить</button>
+      <button type="button" data-ng-click="vm.savePost(vm.addAuthor, vm.addTitle, vm.addContent, vm.image)">Сохранить</button>
     </div>
   </div>
 

@@ -21,10 +21,14 @@ angular
         vm.addContent = "";
       };
 
-      vm.savePost = function(author, title, content) {
-        const post = { author, title, content };
+      vm.savePost = function(author, title, content, image) {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("author", author);
+        formData.append("content", content);
+        formData.append("file", image);
 
-        postService.savePost(post)
+        postService.savePost(formData)
           .then(response => {
             const savedPost = response.data;
             vm.posts.push(savedPost);

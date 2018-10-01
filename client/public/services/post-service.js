@@ -6,10 +6,12 @@ postServiceModule.factory('postService', function($http) {
       return $http.get('/api/posts');
     },
 
-    savePost: function(post) {
-      return $http.put('/api/posts', post, {
-        'Content-type': 'application/json',
-        'accept': 'application/json'
+    savePost: function(formData) {
+      return $http.put('/api/posts', formData, {
+        headers: {
+          'Content-type': undefined,
+          'accept': 'application/json'
+        }
       });
     },
 

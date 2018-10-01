@@ -1,11 +1,14 @@
 var express = require('express');
+const multer = require('multer');
+const upload = multer({dest: 'server/uploads/'});
+const base64Img = require('base64-img');
 
 var Post = require('./../model/post');
 var router = express.Router();
 
 /* SAVE NEW ITEM IN DATABSE */
-router.put('/posts', function(req, res) { // PUT /posts . Triggers function on PUT 'localhost:3000/posts' url.
-
+router.put('/posts', upload.single('file'), function(req, res) { // PUT /posts . Triggers function on PUT 'localhost:3000/posts' url.
+  console.log('req.file ', req.file);
   var title = req.body.title; //getting 'title' property from body object
   var content = req.body.content; //getting 'content' property from body object
   var author = req.body.author; //getting 'author' property from body object
@@ -16,7 +19,22 @@ router.put('/posts', function(req, res) { // PUT /posts . Triggers function on P
     author: author
   });
 
+  if (req.file) {
+    base64Img.base64(req.file.path, function(err, data) {
+      if (err) {
+        console.log('error ', err);
+      } else {
+        post.image = data;
 
+        savePost(post, res);
+      }
+    });
+  } else {
+    savePost(post, res);
+  }
+});
+
+function savePost(post, res) {
   post.save(post)
     .then( //handle success case
       function(doc) { // doc stands for Document(row in table)
@@ -26,8 +44,7 @@ router.put('/posts', function(req, res) { // PUT /posts . Triggers function on P
       res.status(400) // return status 400. 400 usually means 'Bad input parameters'
     }
   );
-
-});
+}
 
 /* GET ALL POSTS */
 router.get('/posts', function(req, res) { // GET '/posts' url. Triggers function on GET 'localhost:3000/posts' url
