@@ -5,7 +5,9 @@ postServiceModule.factory('postService', function($http) {
     getPosts: function() {
       return $http.get('/api/posts');
     },
-
+    getPostById: (id) => {
+      return $http.get('/api/posts/' + id);
+    },
     savePost: function(formData) {
       return $http.put('/api/posts', formData, {
         headers: {

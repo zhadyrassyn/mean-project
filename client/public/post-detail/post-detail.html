@@ -1,1 +1,7 @@
-{{vm.school}}
+<article>
+    <img data-ng-src="{{vm.currentPost.image}}" alt="Картинка поста" data-ng-if="vm.currentPost.image">
+    <p>Title: {{vm.currentPost.title}}</p>
+    <p>Author: {{vm.currentPost.author}}</p>
+    <p>Date: {{vm.currentPost.date | date: 'yyyy-MM-dd HH:mm'}}</p>
+    <p>Content: {{vm.currentPost.content}}</p>
+</article>

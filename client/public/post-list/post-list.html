@@ -2,14 +2,14 @@
 <ul>
   <li data-ng-repeat="post in vm.posts">
     <article>
-      <img data-ng-src="{{post.image}}" alt="Картинка поста" data-ng-if="post.image">
+      <!--<img data-ng-src="{{post.image}}" alt="Картинка поста" data-ng-if="post.image">-->
       <p>Title: {{post.title}}</p>
       <p>Author: {{post.author}}</p>
       <p>Date: {{post.date | date: 'yyyy-MM-dd HH:mm'}}</p>
       <p>Content: {{post.content}}</p>
       <button type="button" data-ng-click="vm.deletePost(post._id)">Delete</button>
       <button type="button" data-ng-click="vm.editPost(post)">Edit</button>
-      <button type="button" ui-sref="detail">More...</button>
+      <button type="button" ui-sref="detail({ postID: post._id })">More...</button>
     </article>
 
     <!-- EDIT Modal -->
