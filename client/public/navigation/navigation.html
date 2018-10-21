@@ -1,16 +1,20 @@
-<header>
-    <nav>
-        <a ui-sref="index">Brand</a>
-        <ul>
-            <li>
-                <a ui-sref="index">Главная</a>
-            </li>
-            <li>
-                <a ui-sref="login">Вход</a>
-            </li>
-            <li>
-                <a ui-sref="registration">Регистрация</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+
+<head>
+	<nav>
+		<a ui-sref="index">Brand</a>
+		<ul>
+			<li>
+				<button ui-sref="index">Главная</button>
+			</li>
+			<li data-ng-if="!$root.session">
+				<button ui-sref="login">Вход</button>
+			</li>
+			<li data-ng-if="!$root.session">
+				<button ui-sref="regestration">Регестрация</button>
+			</li>
+      <li data-ng-if="$root.session">
+        <button data-ng-click="vm.logout()">Выйти</button>
+      </li>
+		</ul>
+	</nav>
+</head>

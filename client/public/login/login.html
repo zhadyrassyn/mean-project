@@ -1,1 +1,8 @@
-{{vm.school}}
+ <form>
+ 	<input type="email" placeholder="Введите ваш email" data-ng-model="vm.email">
+
+ 	<input type="password" placeholder="Введите ваш пароль" data-ng-model="vm.password">
+
+ 	<button type = "button" data-ng-click="vm.login(vm.email , vm.password)" >Войти</button>
+  <span class="error">{{vm.error}}</span>
+ </form>

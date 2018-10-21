@@ -1,1 +1,1 @@
-angular.module('postListModule', ['postServiceModule']);
+angular.module('postListModule', ['servicesModule']);

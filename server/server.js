@@ -16,7 +16,8 @@ app.use(session({
   secret: 'ichigo',
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  name: 'sessionID'
 }));
 
 passport.use(new LocalStrategy(
@@ -63,9 +64,8 @@ app.use(passport.session());
 
 app.use(bodyParser.json()); // use bodyParser.json() function that helps to parse JSON in body requests
 
-
-
 app.post('/api/login', passport.authenticate('local'), function(req, res) {
+  res.cookie("session", JSON.stringify(req.user));
   res.sendStatus(200);
 });
 
@@ -76,6 +76,14 @@ app.get('/shiro', function(req, res) {
   } else {
     res.send("USER IS UNAUTHORIZED");
   }
+});
+
+app.get('/api/logout', function(req, res) {
+  req.logout();
+  req.session.destroy();
+  res.clearCookie("session");
+  res.clearCookie("sessionID");
+  res.sendStatus(200);
 });
 
 app.post('/api/signup', function(req, res) {
@@ -111,5 +119,10 @@ app.use('/api', postController);
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 
 app.listen(3000);

@@ -1,4 +1,5 @@
-var app = angular.module('root', ['ui.router', 'postListModule', 'postDetailModule', 'navigationModule', 'loginModule']);
+var app = angular.module('root', ['ui.router', 'postListModule', 'postDetailModule', 'navigationModule' ,
+ 'loginModule' , 'regestrationModule', 'servicesModule', 'ngCookies']);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -18,6 +19,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       name: 'login',
       url: '/login',
       component: 'loginComponent'
+    },
+    {
+      name: 'regestration',
+      url: '/regestration',
+      component: 'regestrationComponent'
     }
   ];
 

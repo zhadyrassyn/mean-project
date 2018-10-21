@@ -20,6 +20,9 @@ angular
         vm.addTitle = "";
         vm.addContent = "";
       };
+      vm.login = function() {
+        console.log("true");
+      }
 
       vm.savePost = function(author, title, content, image) {
         const formData = new FormData();
