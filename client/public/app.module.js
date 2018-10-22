@@ -1,5 +1,5 @@
 var app = angular.module('root', ['ui.router', 'postListModule', 'postDetailModule', 'navigationModule' ,
- 'loginModule' , 'regestrationModule', 'servicesModule', 'ngCookies']);
+ 'loginModule' , 'regestrationModule' , 'servicesModule' , 'ngCookies', 'profileModule']);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -24,6 +24,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       name: 'regestration',
       url: '/regestration',
       component: 'regestrationComponent'
+    },
+    {
+      name: 'profile',
+      url: '/profile',
+      component: 'profileComponent'
     }
   ];
 

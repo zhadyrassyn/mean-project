@@ -3,18 +3,21 @@
 	<nav>
 		<a ui-sref="index">Brand</a>
 		<ul>
+      <li data-ng-if="$root.session">
+        <button ui-sref="profile">Profile</button>
+      </li>
 			<li>
 				<button ui-sref="index">Главная</button>
 			</li>
-			<li data-ng-if="!$root.session">
+			<li data-ng-if = "!$root.session">
 				<button ui-sref="login">Вход</button>
 			</li>
-			<li data-ng-if="!$root.session">
+			<li data-ng-if = "!$root.session">
 				<button ui-sref="regestration">Регестрация</button>
 			</li>
-      <li data-ng-if="$root.session">
-        <button data-ng-click="vm.logout()">Выйти</button>
-      </li>
+			<li data-ng-if = "$root.session">
+				<button data-ng-click ="vm.logout()">Выход</button>
+			</li>
 		</ul>
 	</nav>
 </head>

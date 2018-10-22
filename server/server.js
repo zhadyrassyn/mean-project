@@ -106,6 +106,7 @@ app.post('/api/signup', function(req, res) {
       }
     });
 
+    res.cookie("session", JSON.stringify(req.user));
     res.send({user});
   }).catch(function(error) {
     console.log('error ', error);

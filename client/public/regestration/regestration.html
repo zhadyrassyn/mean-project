@@ -1,10 +1,13 @@
 <form>
- 	<input type="email" placeholder="Введите ваш email">
+  <input type="text" placeholder="Введите имя" data-ng-model="vm.firstName">
+  <input type="text" placeholder="Введите фамилию" data-ng-model="vm.lastName">
 
- 	<input type="text" placeholder="Введите ваш пароль">
+ 	<input type="email" placeholder="Введите ваш email" data-ng-model="vm.email">
 
- 	<input type="text" placeholder="Введите ваш пароль еще раз">
+ 	<input type="text" placeholder="Введите ваш пароль" data-ng-model="vm.password">
 
- 	<button type = "button" >зарегестрироваться</button>
+ 	<input type="text" placeholder="Введите ваш пароль еще раз" data-ng-model="vm.password2">
 
+ 	<button type = "button" data-ng-click="vm.register(vm.firstName, vm.lastName, vm.email, vm.password, vm.password2)">Зарегестрироваться</button>
+  <span class="error">{{vm.error}}</span>
  </form>
