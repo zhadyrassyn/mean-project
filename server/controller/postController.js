@@ -6,45 +6,6 @@ const base64Img = require('base64-img');
 var Post = require('./../model/post');
 var router = express.Router();
 
-/* SAVE NEW ITEM IN DATABSE */
-router.put('/posts', upload.single('file'), function(req, res) { // PUT /posts . Triggers function on PUT 'localhost:3000/posts' url.
-  console.log('req.file ', req.file);
-  var title = req.body.title; //getting 'title' property from body object
-  var content = req.body.content; //getting 'content' property from body object
-  var author = req.body.author; //getting 'author' property from body object
-
-  var post = new Post({
-    title: title,
-    content: content,
-    author: author
-  });
-
-  if (req.file) {
-    base64Img.base64(req.file.path, function(err, data) {
-      if (err) {
-        console.log('error ', err);
-      } else {
-        post.image = data;
-
-        savePost(post, res);
-      }
-    });
-  } else {
-    savePost(post, res);
-  }
-});
-
-function savePost(post, res) {
-  post.save(post)
-    .then( //handle success case
-      function(doc) { // doc stands for Document(row in table)
-        res.status(201).send(doc)} // return status '201' and saved doc(object)
-    ).catch( //handle error case
-    function(e) {
-      res.status(400) // return status 400. 400 usually means 'Bad input parameters'
-    }
-  );
-}
 
 /* GET ALL POSTS */
 router.get('/posts', function(req, res) { // GET '/posts' url. Triggers function on GET 'localhost:3000/posts' url
@@ -115,5 +76,64 @@ router.post('/posts/:id', function(req, res) { // POST '/posts/:id' . Trigger fu
     }
   );
 });
+
+router.get('/users/:userId/posts', function(req, res) {
+  var userId = req.params.userId;
+
+  Post.find({'author': userId})
+    .then(function(posts) {
+      if (!posts) {
+        res.sendStatus(404);
+      }
+
+      res.send({ posts: posts });
+    })
+    .catch(function(error) {
+      res.send({ error: error }).status(400);
+    })
+
+});
+
+/* SAVE NEW ITEM IN DATABSE */
+router.put('/users/:userId/posts', upload.single('file'), function(req, res) { // PUT /posts . Triggers function on PUT 'localhost:3000/posts' url.
+  console.log('req.file ', req.file);
+  var title = req.body.title; //getting 'title' property from body object
+  var content = req.body.content; //getting 'content' property from body object
+  // var author = req.body.author; //getting 'author' property from body object
+  var author = req.params.userId; //getting 'author' property from body object
+
+  var post = new Post({
+    title: title,
+    content: content,
+    author: author
+  });
+
+  if (req.file) {
+    base64Img.base64(req.file.path, function(err, data) {
+      if (err) {
+        console.log('error ', err);
+      } else {
+        post.image = data;
+
+        savePost(post, res);
+      }
+    });
+  } else {
+    savePost(post, res);
+  }
+});
+
+function savePost(post, res) {
+  post.save(post)
+    .then( //handle success case
+      function(doc) { // doc stands for Document(row in table)
+        res.status(201).send(doc)} // return status '201' and saved doc(object)
+    ).catch( //handle error case
+    function(e) {
+      res.status(400) // return status 400. 400 usually means 'Bad input parameters'
+    }
+  );
+}
+
 
 module.exports = router;
